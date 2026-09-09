@@ -4,9 +4,7 @@
 
 # Word Speaker
 
-**不会读的变量，听它读。**
-
-Word Speaker 是一款面向开发者的 VS Code / Cursor 插件。把光标放在单词上，按 `Alt+Q`，就能听到真人发音，状态栏同时显示音标和中文释义。
+Word Speaker 是一款面向开发者的 VS Code 插件。将光标放在单词上，按 `Alt+Q`，就能听到真人发音，状态栏同时显示音标和中文释义。
 
 <a href="https://github.com/shuakami/word-speaker/releases/latest/download/word-speaker.vsix"><img src="docs/download-vsix.png" height="50" alt="Download VSIX" /></a>
 <a href="https://shuakami.github.io/word-speaker/"><img src="docs/website.png" height="50" alt="Website" /></a>
