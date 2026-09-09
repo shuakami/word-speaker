@@ -1,0 +1,41 @@
+/* Page-owned rules. Foundation: assets/vercel-brand.css */
+.ws-identity {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vbg-space-2);
+  color: var(--vbg-text-primary);
+  font-weight: var(--vbg-weight-medium);
+}
+.ws-identity img {
+  border-radius: 50%;
+}
+.ws-actions {
+  margin-top: var(--vbg-space-6);
+  align-items: center;
+  gap: var(--vbg-space-5);
+}
+.ws-actions + .vbg-meta {
+  margin-top: var(--vbg-space-4);
+}
+.ws-figure {
+  margin: 0;
+}
+.vbg-section .ws-figure {
+  margin-top: var(--vbg-space-6);
+}
+.ws-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--vbg-border-subtle);
+  border-radius: var(--vbg-radius);
+}
+.ws-figure .vbg-caption {
+  margin-top: var(--vbg-space-3);
+}
+.vbg-section .vbg-table-wrap {
+  margin-top: var(--vbg-space-5);
+}
+.vbg-table-wrap + .vbg-table-wrap {
+  margin-top: var(--vbg-space-8);
+}

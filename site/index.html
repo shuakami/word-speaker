@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Word Speaker — 不会读的变量，听它读｜VS Code 真人发音插件</title>
+    <meta name="description" content="Word Speaker 是一款面向开发者的 VS Code 和 Cursor 插件。把光标放在单词上按 Alt+Q，听到英式或美式真人发音，状态栏同时显示音标和中文释义；按 Alt+W 查看完整词条。发音会缓存在本地，开源并采用 MIT 许可。" />
+    <meta name="keywords" content="VS Code 单词发音插件,VSCode 读单词,Cursor 单词发音,编程英语,变量名读音,音标插件,词典插件,Word Speaker,一键读单词" />
+    <link rel="canonical" href="https://shuakami.github.io/word-speaker/" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="author" content="shuakami" />
+    <meta name="application-name" content="Word Speaker" />
+    <link rel="alternate" hreflang="zh-CN" href="https://shuakami.github.io/word-speaker/" />
+    <link rel="alternate" hreflang="x-default" href="https://shuakami.github.io/word-speaker/" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Word Speaker" />
+    <meta property="og:title" content="Word Speaker — 不会读的变量，听它读" />
+    <meta property="og:description" content="面向开发者的 VS Code 和 Cursor 插件。按 Alt+Q 听到真人发音，状态栏显示音标和中文释义。" />
+    <meta property="og:url" content="https://shuakami.github.io/word-speaker/" />
+    <meta property="og:image" content="https://shuakami.github.io/word-speaker/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Word Speaker：不会读的变量，听它读" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Word Speaker — 不会读的变量，听它读" />
+    <meta name="twitter:description" content="面向开发者的 VS Code 和 Cursor 插件。按 Alt+Q 听到真人发音，状态栏显示音标和中文释义。" />
+    <meta name="twitter:image" content="https://shuakami.github.io/word-speaker/assets/og.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png" />
+    <link rel="apple-touch-icon" href="assets/favicon-180.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..600&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet" referrerpolicy="no-referrer" />
+    <link href="assets/vercel-brand.css" rel="stylesheet" />
+    <link href="site.css" rel="stylesheet" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Word Speaker",
+      "alternateName": "Word Speaker 一键读单词",
+      "description": "面向开发者的 VS Code 和 Cursor 插件。把光标放在单词上按 Alt+Q，听到英式或美式真人发音，状态栏同时显示音标和中文释义；按 Alt+W 查看完整词条。发音本地缓存。",
+      "url": "https://shuakami.github.io/word-speaker/",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "VS Code Extension",
+      "operatingSystem": "Windows, macOS, Linux",
+      "softwareRequirements": "Visual Studio Code 1.85 或更高版本",
+      "softwareVersion": "1.0.3",
+      "dateModified": "2026-09-09",
+      "inLanguage": "zh-CN",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY", "availability": "https://schema.org/InStock" },
+      "downloadUrl": "https://github.com/shuakami/word-speaker/releases/latest/download/word-speaker.vsix",
+      "installUrl": "https://github.com/shuakami/word-speaker/releases/latest/download/word-speaker.vsix",
+      "screenshot": [
+        "https://shuakami.github.io/word-speaker/assets/shots/hover-option.png",
+        "https://shuakami.github.io/word-speaker/assets/shots/lookup.png"
+      ],
+      "image": "https://shuakami.github.io/word-speaker/assets/og.png",
+      "featureList": [
+        "Alt+Q 播放真人发音，支持英式和美式",
+        "状态栏显示音标和中文释义",
+        "Alt+W 查词：例句、词形变化、词组、近义词",
+        "发音文件缓存在本地",
+        "后台播放，不弹出扰人窗口"
+      ],
+      "author": { "@type": "Person", "name": "shuakami", "url": "https://github.com/shuakami" },
+      "license": "https://opensource.org/licenses/MIT",
+      "sameAs": ["https://github.com/shuakami/word-speaker"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Word Speaker 怎么安装？",
+          "acceptedAnswer": { "@type": "Answer", "text": "从 GitHub Releases 下载 word-speaker.vsix，在 VS Code 扩展面板右上角选择「从 VSIX 安装」，或者在终端运行 code --install-extension word-speaker.vsix。Cursor 也可以用同样的方式安装。" }
+        },
+        {
+          "@type": "Question",
+          "name": "Word Speaker 有哪些快捷键？",
+          "acceptedAnswer": { "@type": "Answer", "text": "Alt+Q 读出光标下或选中的单词；Alt+W 打开查词面板；Alt+Shift+Q 重读上一个单词。" }
+        },
+        {
+          "@type": "Question",
+          "name": "发音需要联网吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "第一次读某个单词时需要联网下载发音文件，之后这个文件会缓存在本地，再读同一个单词不需要联网。" }
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body class="vbg-report">
+    <div class="vbg-shell">
+      <a class="vbg-skip-link" href="#main">跳到内容</a>
+      <header class="vbg-header">
+        <div class="vbg-masthead">
+          <span class="vbg-identity ws-identity"><img src="assets/icon.png" alt="" width="24" height="24" /><span>Word Speaker</span></span>
+          <div class="vbg-document-meta">
+            <span class="vbg-state">VS Code 插件</span>
+            <span class="vbg-date">版本 1.0.3</span>
+          </div>
+        </div>
+      </header>
+
+      <main id="main">
+        <section class="vbg-opening">
+          <div class="vbg-opening-claim">
+            <h1 class="vbg-display">VS Code 读单词插件：在 VS Code 中读出不会的单词、查看单词释义</h1>
+            <div class="vbg-cluster ws-actions">
+              <a class="vbg-button" href="https://github.com/shuakami/word-speaker/releases/latest/download/word-speaker.vsix">下载 VSIX</a>
+              <a class="vbg-button" href="https://github.com/shuakami/word-speaker">GitHub</a>
+            </div>
+            <p class="vbg-meta">适用于 VS Code 1.85 及以上与 Cursor，支持 Windows、macOS 和 Linux。MIT 许可。</p>
+          </div>
+          <figure class="vbg-opening-proof ws-figure">
+            <img src="assets/shots/hover-option.png" alt="Word Speaker 的释义卡片显示单词的音标、词典分级、释义和例句。" width="1600" height="859" />
+            <figcaption class="vbg-caption">按 Alt+Q 后，释义卡片显示音标、词典分级、释义和例句，并可切换英式或美式发音。</figcaption>
+          </figure>
+        </section>
+
+        <section class="vbg-section">
+          <div class="vbg-reading">
+            <h2 class="vbg-heading-24">完整词条，一键唤出</h2>
+            <p>按 Alt+W 打开查词面板，查看双语释义、词形变化、例句、词组、近义词和词汇分级。选中一行并按回车，即可复制。</p>
+          </div>
+          <figure class="ws-figure">
+            <img src="assets/shots/lookup.png" alt="Alt+W 查词面板：navigator 的音标、释义、例句、复数形式和近义词。" width="1398" height="768" loading="lazy" />
+            <figcaption class="vbg-caption">navigator 的查词面板。</figcaption>
+          </figure>
+        </section>
+
+        <section class="vbg-section">
+          <div class="vbg-reading">
+            <h2 class="vbg-heading-24">随按随听，阅后即隐</h2>
+            <p>音标与释义在状态栏轻巧显示，数秒后自然隐去。鼠标悬停可以查看完整词条，并切换英式或美式发音。</p>
+          </div>
+          <figure class="ws-figure">
+            <img src="assets/shots/statusbar.png" alt="按下 Alt+Q 后，状态栏显示 clipboard 的音标和释义；鼠标移到状态栏上时展开完整的释义卡片。" width="1600" height="860" loading="lazy" />
+          </figure>
+        </section>
+
+        <section class="vbg-section">
+          <div class="vbg-reading">
+            <h2 class="vbg-heading-24">无感播放，断网照听</h2>
+            <p>发音在后台播放，不弹出扰人的窗口。每个单词的发音文件只下载一次，之后缓存在本机，重复朗读无需再次联网。词典和发音数据来自 <a href="https://uapis.cn">uapis.cn</a>。</p>
+          </div>
+        </section>
+
+        <section class="vbg-section">
+          <div class="vbg-reading">
+            <h2 class="vbg-heading-24">快捷键和设置</h2>
+          </div>
+          <div class="vbg-table-wrap">
+            <table>
+              <caption class="vbg-visually-hidden">快捷键</caption>
+              <thead>
+                <tr><th scope="col">快捷键</th><th scope="col">作用</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>Alt+Q</kbd></th><td>读出光标下或选中的单词</td></tr>
+                <tr><th scope="row"><kbd>Alt+W</kbd></th><td>打开查词面板</td></tr>
+                <tr><th scope="row"><kbd>Alt+Shift+Q</kbd></th><td>重读上一个单词</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="vbg-table-wrap">
+            <table>
+              <caption class="vbg-visually-hidden">设置项</caption>
+              <thead>
+                <tr><th scope="col">配置项</th><th scope="col">默认值</th><th scope="col">说明</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><code>wordSpeaker.accent</code></th><td><code>us</code></td><td>默认口音。<code>uk</code> 为英式，<code>us</code> 为美式</td></tr>
+                <tr><th scope="row"><code>wordSpeaker.showDefinition</code></th><td><code>true</code></td><td>读单词时是否在状态栏显示音标和释义</td></tr>
+                <tr><th scope="row"><code>wordSpeaker.statusBarDuration</code></th><td><code>6</code></td><td>状态栏信息的显示秒数</td></tr>
+                <tr><th scope="row"><code>wordSpeaker.playbackMode</code></th><td><code>auto</code></td><td>默认优先使用系统原生播放器，也可切换为 VS Code 内置播放器</td></tr>
+                <tr><th scope="row"><code>wordSpeaker.playerCommand</code></th><td>空</td><td>需要时可自定义播放命令</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="vbg-section">
+          <div class="vbg-reading">
+            <h2 class="vbg-heading-24">两步安装，即刻发声</h2>
+            <ol>
+              <li>从 <a href="https://github.com/shuakami/word-speaker/releases/latest">Releases</a> 下载 <code>word-speaker.vsix</code>。</li>
+              <li>将 VSIX 拖入 VS Code 扩展面板，或在终端运行 <code>code --install-extension word-speaker.vsix</code>。</li>
+            </ol>
+            <p><a class="vbg-button" href="https://github.com/shuakami/word-speaker/releases/latest/download/word-speaker.vsix">下载 VSIX</a></p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="vbg-footer">
+        <span class="ws-identity"><img src="assets/icon.png" alt="" width="20" height="20" /><span>Word Speaker</span></span>
+        <span>MIT License · <a href="https://github.com/shuakami/word-speaker">GitHub</a> · <a href="https://github.com/shuakami/word-speaker/releases">Releases</a> · <a href="https://github.com/shuakami/word-speaker/issues">反馈问题</a></span>
+      </footer>
+    </div>
+  </body>
+</html>

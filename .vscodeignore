@@ -1,0 +1,9 @@
+node_modules
+src
+tsconfig.json
+.gitignore
+**/*.map
+icon.svg
+site
+docs/screenshots
+.github

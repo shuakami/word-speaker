@@ -1,0 +1,185 @@
+{
+  "name": "word-speaker",
+  "displayName": "Word Speaker 一键读单词",
+  "description": "光标停在单词上按一下快捷键，立刻听到真人发音（英/美音），并在状态栏显示音标与释义。",
+  "version": "1.0.3",
+  "publisher": "shuakami",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#ffffff",
+    "theme": "light"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Education",
+    "Other"
+  ],
+  "keywords": [
+    "pronunciation",
+    "dictionary",
+    "发音",
+    "单词",
+    "词典",
+    "english",
+    "读单词",
+    "音标"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "wordSpeaker.speak",
+        "title": "读出单词",
+        "category": "Word Speaker",
+        "icon": "$(unmute)"
+      },
+      {
+        "command": "wordSpeaker.speakUS",
+        "title": "读出单词（美音）",
+        "category": "Word Speaker"
+      },
+      {
+        "command": "wordSpeaker.speakUK",
+        "title": "读出单词（英音）",
+        "category": "Word Speaker"
+      },
+      {
+        "command": "wordSpeaker.lookup",
+        "title": "查词（音标 / 释义 / 例句）",
+        "category": "Word Speaker",
+        "icon": "$(book)"
+      },
+      {
+        "command": "wordSpeaker.repeat",
+        "title": "重读上一个单词",
+        "category": "Word Speaker"
+      },
+      {
+        "command": "wordSpeaker.toggleAccent",
+        "title": "切换英音 / 美音",
+        "category": "Word Speaker"
+      },
+      {
+        "command": "wordSpeaker.clearCache",
+        "title": "清除发音缓存",
+        "category": "Word Speaker"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "wordSpeaker.speak",
+        "key": "alt+q",
+        "mac": "alt+q",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "wordSpeaker.lookup",
+        "key": "alt+w",
+        "mac": "alt+w",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "wordSpeaker.repeat",
+        "key": "alt+shift+q",
+        "mac": "alt+shift+q"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "wordSpeaker.speak",
+          "group": "navigation@1",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "wordSpeaker.lookup",
+          "group": "navigation@2",
+          "when": "editorTextFocus"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Word Speaker",
+      "properties": {
+        "wordSpeaker.accent": {
+          "type": "string",
+          "enum": [
+            "uk",
+            "us"
+          ],
+          "enumDescriptions": [
+            "英式发音",
+            "美式发音"
+          ],
+          "default": "us",
+          "description": "默认口音。"
+        },
+        "wordSpeaker.showDefinition": {
+          "type": "boolean",
+          "default": true,
+          "description": "读单词时同时在状态栏显示音标与中文释义。"
+        },
+        "wordSpeaker.statusBarDuration": {
+          "type": "number",
+          "default": 6,
+          "minimum": 1,
+          "maximum": 60,
+          "description": "状态栏音标/释义显示时长（秒）。"
+        },
+        "wordSpeaker.playerCommand": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "自定义播放命令，`{file}` 会被替换为 mp3 路径。留空则自动检测（macOS: afplay；Windows: PowerShell；Linux: mpv / ffplay / mpg123 / play / cvlc），都不可用时回退到 VS Code 内置播放器。"
+        },
+        "wordSpeaker.playbackMode": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "native",
+            "webview"
+          ],
+          "enumDescriptions": [
+            "优先系统播放器，不可用时使用 VS Code 内置播放器",
+            "仅使用系统播放器",
+            "仅使用 VS Code 内置播放器（Webview）"
+          ],
+          "default": "auto",
+          "description": "播放方式。"
+        },
+        "wordSpeaker.engine": {
+          "type": "string",
+          "enum": [
+            "default",
+            "local"
+          ],
+          "default": "local",
+          "description": "查词引擎。local 为高速模式，延迟更低。"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shuakami/word-speaker"
+  },
+  "homepage": "https://shuakami.github.io/word-speaker/",
+  "bugs": {
+    "url": "https://github.com/shuakami/word-speaker/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "@types/vscode": "1.85",
+    "@vscode/vsce": "^3.9.2",
+    "typescript": "^5.9.3"
+  }
+}

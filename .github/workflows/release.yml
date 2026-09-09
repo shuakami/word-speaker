@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Package VSIX
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          npx @vscode/vsce package --no-dependencies -o "word-speaker-$VERSION.vsix"
+          cp "word-speaker-$VERSION.vsix" word-speaker.vsix
+
+      - name: Write release notes
+        env:
+          TAG: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          FILE=word-speaker-${TAG#v}.vsix
+          SIZE=$(stat -c%s "$FILE" | awk '{printf "%.1f", $1/1024}')
+          SHA=$(sha256sum "$FILE" | cut -d' ' -f1)
+          PREV=$(git describe --tags --abbrev=0 "$TAG^" 2>/dev/null || true)
+          {
+            echo "<a href=\"https://github.com/$REPO/releases/download/$TAG/$FILE\"><img src=\"https://raw.githubusercontent.com/$REPO/main/docs/download-vsix.png\" height=\"50\" alt=\"Download VSIX\" /></a>"
+            echo
+            echo "<details>"
+            echo "<summary>VSIX 信息</summary>"
+            echo
+            echo "<table>"
+            echo "<tr><td>文件</td><td>$FILE</td></tr>"
+            echo "<tr><td>大小</td><td>${SIZE} KB</td></tr>"
+            echo "<tr><td>要求</td><td>VS Code 1.85+ / Cursor</td></tr>"
+            echo "<tr><td>SHA-256</td><td><code>${SHA}</code></td></tr>"
+            echo "</table>"
+            echo "</details>"
+            echo
+            echo "安装：扩展面板「…」→「从 VSIX 安装」，或 \`code --install-extension $FILE\`"
+            echo
+            echo "### 变更"
+            echo
+            if [ -n "$PREV" ]; then
+              git log --format='- %s (%h)' "$PREV..$TAG"
+              echo
+              echo "**Full Changelog**: [$PREV...$TAG](https://github.com/$REPO/compare/$PREV...$TAG)"
+            else
+              git log --format='- %s (%h)' "$TAG"
+            fi
+          } > release-notes.md
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            word-speaker-*.vsix
+            word-speaker.vsix
+          name: ${{ github.ref_name }}
+          body_path: release-notes.md
